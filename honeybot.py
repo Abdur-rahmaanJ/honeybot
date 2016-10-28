@@ -1,5 +1,8 @@
 __author__ = 'me'
 
+#My first messing-up with python. Code in progress. Here only for checking. use at your own risk!
+#see the features in the honeybotfeatures.txt
+
 import socket
 import time
 import os
@@ -17,7 +20,7 @@ BOT_IRC_CHANNEL = "##bottestingmu"
 BOT_IRC_PORT = 6667
 BOT_NICKNAME = "appinventormuBot"
 BOT_OWNER = "appinventormu"
-BOT_PASSWORD = "rfvtgbyhn"
+BOT_PASSWORD = "PASSWORD HERE"
 
 def pingChecker(pingLine):
     if pingLine.find(bytes('PING'  )) != -1:
@@ -63,13 +66,13 @@ def messagechecker(msgLine):
 
 
 
-    list = ['fuck','faggot','fool','sex','buck' ,'shit']
-    if any(word in str(message) for word in list):
+    list1 = ['fuck','faggot','fool','sex','buck' ,'shit']
+    if any(word in str(message) for word in list1):
         irc.send(bytes('PRIVMSG ' + BOT_IRC_CHANNEL + ' :Hey, ' + str(sender) + ' dont swear!\r\n'  ))
         irc.send(bytes('KICK ' + BOT_IRC_CHANNEL + ' ' + str(sender) + ' mind yourself next time!\r\n'  ))
 
-    list = ['love','woman','sexy' ]
-    if any(word in str(message) for word in list):
+    list2 = ['love','woman','sexy' ]
+    if any(word in str(message) for word in list2):
         irc.send(bytes('PRIVMSG ' + BOT_IRC_CHANNEL + ' :Hey, ' + str(sender) + ' are you in love?\r\n'  ))
 
     if (str(message) == "bot tiny story\r\n" and sender =='appinventormu'):
@@ -117,6 +120,7 @@ directory = "C:\\irc"
 if not os.path.exists(directory):
 	os.makedirs(directory)
 target = open(os.path.join(directory,"file.txt"), 'w')
+#/sdcar/folder/file.py for android remove the join etc
 
 
 #.........................................python /bb.py
