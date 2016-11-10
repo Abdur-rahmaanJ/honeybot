@@ -163,7 +163,7 @@ def messagechecker(msgLine):
 	if ( str(message) == jpycmd):
 		irc.send(bytes(PRIV + BOT_IRC_CHANNEL + ' :nnn nnn, ' + str(sender) + '!\r\n','utf8'  )  )
 	
-	swearlist = ['fuck','faggot','fool','sex','buck' ,'shit','dick','ggt','falourmama','liki','zako','pilon','pilnn','tits']
+	swearlist = ['fuck','faggot','fool','sex','buck' ,'shit','dick','tits']
 	swearlistr = ' dont swear'
 	if any(word in str(message) for word in swearlist):
 		irc.send(bytes('PRIVMSG ' + BOT_IRC_CHANNEL + ' :Hey, ' + str(sender) + ' dont swear!\r\n','utf8'  )  )
