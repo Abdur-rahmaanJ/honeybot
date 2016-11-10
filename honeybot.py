@@ -2,6 +2,7 @@
 
 __author__ = 'me'
 
+#David Salinas also on this
 #mute removed
 #My first messing-up with python. Code in progress. Here only for checking. 
 #Honeybot's disparities in code style is because of a trying out of Python
