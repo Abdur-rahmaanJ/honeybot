@@ -87,7 +87,7 @@ def messagechecker(msgLine):
 			#thepassword = str(emsg[5])
 			try:
 				emsg=str(message).split('#')
-				#fromaddr='armij7@gmail.com'
+				#fromaddr=''
 				
 				print('1')
 				fromaddr=str(emsg[1])
@@ -95,10 +95,10 @@ def messagechecker(msgLine):
 				thesub=str(emsg[3])
 				thebody=str(emsg[4])
 				thepassword=str(emsg[5])
-				#toaddr='timeofsands@gmail.com'
+				#toaddr=''
 				#thesub='subj'
 				#thebody='bodyyy'
-				#thepassword='apple654321'
+				#thepassword='1'
 				print('2')
 				msg = MIMEMultipart('kjhkjhkj')
 				print('3')
