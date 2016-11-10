@@ -73,8 +73,8 @@ def messagechecker(msgLine):
 
 #..............msgs...............................................................................
 
-	
-	#.mail myadd youradd sub body pwd
+	#.........mail.........	
+	#.mail myadd youradd sub body pwd smtp smtpport put # in between
 	if(info[2]==BOT_NICKNAME):
 		
 		if(str(message[0:5]).strip() =='.mail'):
@@ -95,10 +95,9 @@ def messagechecker(msgLine):
 				thesub=str(emsg[3])
 				thebody=str(emsg[4])
 				thepassword=str(emsg[5])
-				#toaddr=''
-				#thesub='subj'
-				#thebody='bodyyy'
-				#thepassword='1'
+				domsmtp=str(emsg[6])
+				smtpport=int(emsg[7])
+				
 				print('2')
 				msg = MIMEMultipart('kjhkjhkj')
 				print('3')
@@ -115,7 +114,7 @@ def messagechecker(msgLine):
 				print('8')
 				msg.attach(_attach)
 				print('9')
-				server = smtplib.SMTP('smtp.gmail.com', 587)
+				server = smtplib.SMTP(domsmtp, smtpport)
 				print('10')
 				server.starttls()
 				print('11')
@@ -135,7 +134,7 @@ def messagechecker(msgLine):
 				irc.send(bytes(PRIV + BOT_IRC_CHANNEL+' :oops, '+str(sender)+' !\r\n','utf8')  )
 			
 			mute=False
-	
+	#.........commands.........	
 	if(str(message[0:5])== '.mute'):
 		irc.send(bytes(PRIV+' '+BOT_IRC_CHANNEL+' :\x01ACTION'+' cries and zips his mouth shut\x01\r\n','utf8')  )
 		mute=True
@@ -154,6 +153,7 @@ def messagechecker(msgLine):
 		irc.send(bytes("QUIT :see you soon\r\n",'utf8')  )
 		
 	
+	#........responses.........	
 	if(str(message)=='hi'):
 		irc.send(bytes(PRIV + BOT_IRC_CHANNEL+' :Hi there, '+str(sender)+' !\r\n','utf8')  )
 	
@@ -236,6 +236,7 @@ def messagechecker(msgLine):
 		if all(word in str(message) for word in chjcmd ):
 			irc.send(bytes('JOIN ' + BOT_IRC_CHANNEL2 + '\r\n','utf8'  )  )
 	
+	#.........weather.........	
 	if (str(message[0:4]) == '.wea'):
 			try:
 				data= message[5:len(message)].strip()
@@ -264,9 +265,10 @@ def messagechecker(msgLine):
 			except:
 				#print(dp1)
 				#print(dp2)
-				#irc.send(bytes('PRIVMSG ' + BOT_IRC_CHANNEL + ' :Hey, ' + str(sender) + ' opps something is bad!\r\n','utf8'  )  )
+				irc.send(bytes('PRIVMSG ' + BOT_IRC_CHANNEL + ' :Hey, ' + str(sender) + ' opps could not fetch weather!\r\n','utf8'  )  )
 				pass
 	
+	#.........maths functions.........	
 	if(str(message[0:5]) == '.rand'):
 		randdata = (message[6:len(message)])
 		rdata = randdata.split()
@@ -310,6 +312,7 @@ def messagechecker(msgLine):
 			irc.send(bytes('PRIVMSG ' + BOT_IRC_CHANNEL + ' :Hey, ' + str(sender) +' could not perform the square root operation !\r\n','utf8'  )  )
 			pass
 	
+	#.........graphics.........	
 	prhouse1 = " _______________________ "
 	prhouse2 = "/                       \\"
 	prhouse3 = "-------------------------"
