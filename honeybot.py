@@ -6,7 +6,7 @@ __author__ = 'Abdur-Rahmaan Janhangeer'
 # ! current issue : mute command does not work 
 
 #debug print statements still in code
-#My first messing-up with python. Code in progress. Here only for checking. use at your own risk (those indents)!
+#My first messing-up with python. Code in progress. Here only for checking.
 #Honeybot's disparities in code style is because of a trying out of Python
 #see the features in the honeybotfeatures.txt 
 from tkinter import*
