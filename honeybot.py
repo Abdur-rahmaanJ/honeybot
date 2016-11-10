@@ -27,7 +27,7 @@ import random
 import math
 
 localtime = time.asctime( time.localtime(time.time()) )
-key='65d4b4eabf8b06d5'
+key='wunderground key here'
 
 BOT_IRC_SERVER ="chat.freenode.net"
 BOT_IRC_CHANNEL = "##bottestingmu"
