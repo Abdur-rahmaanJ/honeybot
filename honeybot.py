@@ -7,7 +7,7 @@ __author__ = 'me'
 #My first messing-up with python. Code in progress. Here only for checking. 
 #Honeybot's disparities in code style is because of a trying out of Python
 #see the features in the honeybotfeatures.txt 
-from tkinter import*
+from tkinter import*#unused
 
 
 import smtplib
@@ -15,9 +15,9 @@ from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
 from email.header import Header
 
-import _thread
+import _thread#unused
 import socket
-import time
+import time#used on android to create differnet log files
 import os
 
 import urllib.request
