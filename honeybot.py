@@ -104,7 +104,7 @@ BOT_OWNER1 = "appinventormu"
 BOT_OWNER2 = "appinv"
 
 BOT_OWNERS =[BOT_OWNER1,BOT_OWNER2]
-BOT_PASSWORD = "rfvtgbyhn"
+BOT_PASSWORD = ""
 
 #BOT_IRC_CHANNEL2 = "#python"
 
