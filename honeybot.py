@@ -134,7 +134,56 @@ def messagechecker(msgLine):
 				irc.send(bytes(PRIV + BOT_IRC_CHANNEL+' :oops, '+str(sender)+' !\r\n','utf8')  )
 			
 			mute=False
-	#.........commands.........	
+	#.........commands.........
+		if(str(message[0:4])== '.web'):
+		#if(str(message[6:13])== 'countlet'):
+		cl=message.split(' ')
+		webs=cl[2].strip()
+		#re.sub(r '.*w','w',webs)
+		#g=webs.find('www')
+		entry=webs#input('Enter website : ')
+		alph=['a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y','z']
+		a=-1
+
+		directory = "C:\\irc"
+		if not os.path.exists(directory):
+			os.makedirs(directory)
+		filem = open(os.path.join(directory,"filea.txt"), 'w')
+		try:
+
+			b=urllib.request.urlopen('http://'+entry)#+entry
+			vaaa=b.read()#.decode('utf8')
+
+			#irc.send(bytes('PRIVMSG ' + BOT_IRC_CHANNEL + ' : ' +str(testwcl)+'\r\n','utf8'  )  )
+			#print(vaaa)
+			
+			while (a<len(alph)-1):
+				a+=1
+				wcl1=alph[a]
+				wcl2=str(vaaa).count(alph[a])
+
+				filem.write(str(wcl1)+':')
+				#print('...')
+				filem.write(str(wcl2)+' ')
+				filem.flush()
+				#print(alph[a],str(vaaa).count(alph[a]),sep='',end=' ')
+				
+				
+				
+
+		except:
+			print(entry+' not found')
+			irc.send(bytes(PRIV + address+' : could not get url\r\n','utf8')  )
+		filem.close()
+		filen = open(os.path.join(directory,"filea.txt"), 'r')
+		#time.sleep(2)
+		cc=filen.read()
+		msg=str(cc)
+		#time.sleep(2)
+		print('cc:',cc)
+		print('msg:',msg)
+		if (msg.strip() != ''):
+			irc.send(bytes(PRIV + address+' : '+msg+'\r\n','utf8')  )
 	if(str(message[0:5])== '.mute'):
 		irc.send(bytes(PRIV+' '+BOT_IRC_CHANNEL+' :\x01ACTION'+' cries and zips his mouth shut\x01\r\n','utf8')  )
 		mute=True
