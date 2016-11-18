@@ -1,3 +1,7 @@
+#######################################################
+#oop bot basics. ifs not yet added . need devlopment .
+#######################################################
+
 #class NNN (object):
 #	varglo = 0
 
@@ -12,6 +16,7 @@
 #def printerb() :
 #	print('test ok')
 #
+
 from tkinter import*
 
 import re
