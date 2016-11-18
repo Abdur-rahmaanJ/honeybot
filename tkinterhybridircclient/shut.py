@@ -2,9 +2,7 @@
 # -*- coding: utf-8 -*-
 __author__ = 'me'
 
-#My first messing-up with python. Code in progress. Here only for checking. use at your own risk (those indents)!
-#Honeybot's disparities in code style is because of a trying out of Python
-#see the features in the honeybotfeatures.txt 
+#me and david salinas #irc clent / tkinter dev is moxi
 
 import socket
 import tkinter
