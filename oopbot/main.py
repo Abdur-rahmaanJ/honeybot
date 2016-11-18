@@ -1,5 +1,5 @@
-import ft
-from ft import*
+import functionandclass
+from functionandclass import*
 
 
 #c = NNN()
