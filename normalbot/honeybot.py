@@ -1,21 +1,26 @@
+
+
 #.################################################################################
 #.                                 AUTHORS AND CONTRIBUTORS                      
 #. --original basecode / template : 
-#. 	jeoreng
+#. 		jeoreng
 #. --person who showed me the template :
-#. 	ismed from channel #python of freenode (chat.freenode.net)
+#. 		ismed from channel #python of freenode (chat.freenode.net)
 #. --kick starter,  the person who worked with me to troubleshoot the template:
-#. 	EagleAngelo from channel #bottesting on freenode (chat.freenode.net)
-#. --active development and tkinter (python's in-built gui) support :
-#. 	David Salinas / mo4_xi1_gen1_ren2 of #Mandarin on freenode 
-#. 	(chat.freenode.net)
+#. 		EagleAngelo from channel #bottesting on freenode (chat.freenode.net)
+#. --*active development and tkinter (python's in-built gui) support :
+#. 		David Salinas / mo4_xi1_gen1_ren2 of #Mandarin on freenode 
+#. 		(chat.freenode.net)
 #. --bot testing support and founder of ##bottestingmu :
-#. 	Yash Paupia / Haruno on freenode (chat.freenode.net)
+#. 		Yash Paupia / Haruno on freenode (chat.freenode.net)
+#. --awesome suggestions:
+#.              rus2 of #Mandarin on freenode (chat.freenode.net)
 #. --organisation suggestions :
-#. 	keiserr
+#. 		keiserr
 #. --further support:
-#. 	loganad1
-#. 	
+#. 		loganad1
+#. >> disclaimer : if you find anything of poor quality or non-pythonic, don't 
+#.    blame any contributor for it. I am fully responsible . . .
 #.################################################################################
 
 #.################################################################################
@@ -25,7 +30,7 @@
 #.    {                                                                          
 #.      "draw_white_space" : "all"                                               
 #.    }                                                                          
-#. >> 
+#. >> notepad ++ also not bad
 #.################################################################################
 
 #.################################################################################
@@ -34,23 +39,27 @@
 #. 1  *configurations*
 #. 2  *life sign / ping checker function*
 #. 3  *main function*  
-#. 4   ,..address deciding
-#. 5   ,..bot commands
-#. 6   ,..mail
-#. 7   ,..counts letters in webpage
-#. 8   ,..questions, answers
-#. 9   ,..states and feelings
-#. 10  ,..weather
-#. 11  ,..functional maths commands part sin cos etc
-#. 12  ,..graphical part
-#. 13  *connection*
+#. 4   ,...address deciding
+#. 5   ,...bot owner commands
+#.     ,...,...join
+#.     ,...,...part
+#.     ,...,...quit
+#.     ,...,...announce
+#. 6   ,...mail
+#. 7   ,...counts letters in webpage
+#. 8   ,...questions, answers
+#. 9   ,...states and feelings
+#. 10  ,...weather
+#. 11  ,...functional maths commands part sin cos etc
+#. 12  ,...graphical part
+#. 13 *connection*
 #. 14 *log*
 #. 15 *message checking*
 #. 16 some explanations
 #.
 #.################################################################################
 
-__author__ = 'me'
+__author__ = 'Abdur-Rahmaan Janhangeer'
 
 #My first messing-up with python. Code in progress. Here only for checking. use at your own risk (those indents)!
 #Honeybot's disparities in code style is because of a trying out of Python
@@ -80,14 +89,18 @@ import json
 import random
 import math
 
-from wordpress_xmlrpc import Client, WordPressPost
-from wordpress_xmlrpc.methods import posts # NewPost
+#from wordpress_xmlrpc import Client, WordPressPost
+#from wordpress_xmlrpc.methods import posts # NewPost
+
+#import struct
+
+#import calendar
 
 #.################################################################################
 #.                               configurations                                  #
 #.################################################################################
 
-wordpress_lib_installed = True
+#wordpress_lib_installed = True
 
 localtime = time.asctime( time.localtime(time.time()) )
 key='65d4b4eabf8b06d5'
@@ -136,7 +149,8 @@ def messagechecker(msgLine):
 	info = completeLine[0].split()
 	message = (completeLine[1].split("\\r")[0]).replace("'b",'')
 	sender = info[0][2:].split("!", 1)[0]
-	
+	refinedmsg = str(message.lower())
+	refinedmsgl = len(refinedmsg)
 	
 	print("Complete Line-->" + str(completeLine))
 	print("Info-->" + str(info))
@@ -149,10 +163,11 @@ def messagechecker(msgLine):
 #...################################################################################
 
 	address=''
-	if (str(info[2])!= BOT_NICKNAME):
-		address=str(info[2])
-	elif (str(info[2])== BOT_NICKNAME):
-		address=str(sender)
+	if (len(info)>=2):
+		if ( str(info[2])!= BOT_NICKNAME ):
+			address=str(info[2])
+		elif ( str(info[2]) == BOT_NICKNAME):
+			address=str(sender)
 
 #...################################################################################
 #                               bot commands                                      #
@@ -161,103 +176,135 @@ def messagechecker(msgLine):
 	if any(word in str(sender) for word in BOT_OWNERS):
 		#print('owwwwwner')
 		if(str(message[0:4])== '.bot'):
-			print('.bot ok')
+			#print('.bot ok')
 			#if(sender == (BOT_OWNER or BOT_OWNER2)):
-			bclist= str(message).split(' ')
-			print('split ok')
+			bclist= refinedmsg.split(' ')
+			#print('split ok')
 			
 			if (str(bclist[1]) == 'join'):
-				print('join ok')
+				#print('join ok')
 				irc.send(bytes('JOIN ' + str(bclist[2]) + '\r\n','utf8'  )  )
 			
 			if (str(bclist[1]) == 'part'):
 				irc.send(bytes('PART ' + str(bclist[2]) + ' : leaving . . .\r\n','utf8'  )  )
 			
-			if (str(bclist[1]) == 'lusers'):
-				irc.send(bytes('LUSERS \r\n','utf8')  )
-				irc.sendall(bytes(PRIV + address+' '+str(msgLine)+'\r\n','utf8')  )
-			
 			if (str(bclist[1]) == 'quit'):
 				irc.send(bytes(PRIV + address+' :i have to go !\r\n','utf8')  )
 				irc.send(bytes("QUIT : see you soon\r\n",'utf8')  )
-		
+#   .bot-announce i am me-##channel
+			
+			if ( refinedmsg[5:13] =='announce' ) :
+				try:
+					bclist2 = refinedmsg.split('-')
+					print(bclist2)
+					annceraw = bclist2[1].split(' ',1)
+					print(annceraw)
+					lengthlist=[]
+					phraselist = annceraw[1].split('.')
+					if ( annceraw[0]=='announce' ):
+							x=0
+							y=-1
+							#lengthlist=[]
+							while x < len(phraselist):
+								x += 1
+								y += 1
+								lengthlist.append(len(phraselist[y]))
+							lengthlist.sort()
+							an = 'announcement'
+							highestnum = lengthlist[len(lengthlist)-1]
+							dec = '*' * highestnum
+							paddr = bclist2[2]
+							irc.send(bytes(PRIV + paddr + ' :' + dec + '\r\n','utf8'  )  )
+							irc.send(bytes(PRIV + paddr + ' :' + an + '\r\n','utf8'  )  )
+							irc.send(bytes(PRIV + paddr + ' :' + dec + '\r\n','utf8'  )  )
+							a = 0
+							b = -1
+							while a < len(phraselist): 
+								a += 1
+								b += 1
+								irc.send(bytes(PRIV + paddr + ' :' + phraselist[b]+ '\r\n','utf8'  )  )
+							irc.send(bytes(PRIV + paddr + ' :' + dec  + '\r\n','utf8'  )  )
+				except:
+					irc.send(bytes(PRIV + address + ' : could not announce\r\n','utf8'  )  )
+
 
 #...################################################################################
 #.                                    mail                                       #
 #...################################################################################
 
 	
-	#.mail myadd youradd sub body pwd smtp smtpport ....separate all by a #
-	if(info[2]==BOT_NICKNAME and (len(info)>=2)):
-		mailcount=0
-		if(str(message[0:5]).strip() =='.mail'):
-			mute = True
-			try:
-				emsg=str(message).split('#')
-				
-				
-				print('1')
-				mailcount=mailcount+1
-				fromaddr=str(emsg[1])
-				mailcount=mailcount+1
-				toaddr=str(emsg[2])
-				mailcount=mailcount+1
-				thesub=str(emsg[3])
-				mailcount=mailcount+1
-				thebody=str(emsg[4])
-				mailcount=mailcount+1
-				thepassword=str(emsg[5])
-				mailcount=mailcount+1
-				domsmtp=str(emsg[6])
-				mailcount=mailcount+1
-				smtpport=int(emsg[7])
-				print('2')
-				mailcount=mailcount+1
-				msg = MIMEMultipart('kjhkjhkj')
-				print('3')
-				mailcount=mailcount+1
-				msg.set_charset('utf8')
-				print('4')
-				mailcount=mailcount+1
-				msg['From'] = fromaddr
-				print('5')
-				mailcount=mailcount+1
-				msg['To'] = toaddr
-				print('6')
-				mailcount=mailcount+1
-				#msg['Subject'] = Header(body.getAttribute('hum').encode('utf8'),'UTF8').encode()
-				msg['Subject'] = Header(thesub,'utf8')
-				print('7')
-				mailcount=mailcount+1
-				_attach = MIMEText(thebody.encode('utf8'),'html','UTF-8')
-				print('8')
-				msg.attach(_attach)
-				print('9')
-				mailcount=mailcount+1
-				server = smtplib.SMTP(domsmtp, smtpport)
-				print('10')
-				mailcount=mailcount+1
-				server.starttls()
-				print('11')
-				mailcount=mailcount+1
-				server.login(fromaddr, thepassword)
-				print('12')
-				mailcount=mailcount+1
-				text = msg.as_string()
-				print('13')
-				mailcount=mailcount+1
-				server.sendmail(fromaddr, toaddr, text)
-				print('14')
-				mailcount=mailcount+1
-				server.quit()
-				print('15')
-				mailcount=mailcount+1
-				irc.send(bytes(PRIV + address+' :mail sent, '+str(sender)+' with count : '+str(mailcount)+' !\r\n','utf8')  )
-				print(mute)
-				
-				
-			except:
-				irc.send(bytes(PRIV + address+' :oops mail not sent '+str(sender)+' count : '+str(mailcount)+' !\r\n','utf8')  )
+	#  .mail myadd youradd sub body pwd smtp smtpport ....separate all by a #
+	if (len(info)>=2):
+		if(info[2]==BOT_NICKNAME ):
+			mailcount=0
+			if(str(message[0:5]).strip() =='.mail'):
+				mute = True
+				try:
+					emsg=refinedmsg.split('#')
+					
+					
+					print('1')
+					mailcount=mailcount+1
+					fromaddr=str(emsg[1])
+					mailcount=mailcount+1
+					toaddr=str(emsg[2])
+					mailcount=mailcount+1
+					thesub=str(emsg[3])
+					mailcount=mailcount+1
+					thebody=str(emsg[4])
+					mailcount=mailcount+1
+					thepassword=str(emsg[5])
+					mailcount=mailcount+1
+					domsmtp=str(emsg[6])
+					mailcount=mailcount+1
+					smtpport=int(emsg[7])
+					print('2')
+					mailcount=mailcount+1
+					msg = MIMEMultipart('kjhkjhkj')
+					print('3')
+					mailcount=mailcount+1
+					msg.set_charset('utf8')
+					print('4')
+					mailcount=mailcount+1
+					msg['From'] = fromaddr
+					print('5')
+					mailcount=mailcount+1
+					msg['To'] = toaddr
+					print('6')
+					mailcount=mailcount+1
+					#msg['Subject'] = Header(body.getAttribute('hum').encode('utf8'),'UTF8').encode()
+					msg['Subject'] = Header(thesub,'utf8')
+					print('7')
+					mailcount=mailcount+1
+					_attach = MIMEText(thebody.encode('utf8'),'html','UTF-8')
+					print('8')
+					msg.attach(_attach)
+					print('9')
+					mailcount=mailcount+1
+					server = smtplib.SMTP(domsmtp, smtpport)
+					print('10')
+					mailcount=mailcount+1
+					server.starttls()
+					print('11')
+					mailcount=mailcount+1
+					server.login(fromaddr, thepassword)
+					print('12')
+					mailcount=mailcount+1
+					text = msg.as_string()
+					print('13')
+					mailcount=mailcount+1
+					server.sendmail(fromaddr, toaddr, text)
+					print('14')
+					mailcount=mailcount+1
+					server.quit()
+					print('15')
+					mailcount=mailcount+1
+					irc.send(bytes(PRIV + address+' :mail sent, '+str(sender)+' with count : '+str(mailcount)+' !\r\n','utf8')  )
+					print(mute)
+					
+					
+				except:
+					irc.send(bytes(PRIV + address+' :oops mail not sent '+str(sender)+' count : '+str(mailcount)+' !\r\n','utf8')  )
 
 #...################################################################################
 #.                       counts letters in webpage                               #
@@ -315,64 +362,66 @@ def messagechecker(msgLine):
 
 #...################################################################################
 #.                               questions, answers                              #
-#...################################################################################
+#...##############################################################################
 
-	if(str(message)=='hi'):
-		irc.send(bytes(PRIV + address+' :Hi there, '+str(sender)+' !\r\n','utf8')  )
-	
-	if(str(message) =='whereDoYouLive?'):
-		irc.send(bytes(PRIV + address+' :Hi there, '+str(sender)+'i live in my house !\r\n','utf8')  )
+	himsg = ['hi','bot']
+	himsgr = ' peace be unto you ... '
+	if all(word in refinedmsg for word in himsg):
+		irc.send(bytes(PRIV + address + ' :Hey, ' + str(sender) + himsgr+ ' \r\n','utf8'  )  )
 
 	
-	swearlist = ['fuck','faggot','fool','sex','buck' ,'shit','dick','ggt','falourmama','liki','zako','pilon','pilnn','tits']
+	swearlist = ['fuck','faggot','fool','sex','buck' ,'shit','dick','ggt','falourmama','zako','pilon','pilnn','tits','penis','vagina','damn','bitch','piss']
+	swearlist2 = ['fess','liki','ass','derriere','beze']
+	swearlists= swearlist + swearlist2
 	swearlistr = ' dont swear'
-	if any(word in str(message.lower()) for word in swearlist):
+	if any(word in refinedmsg for word in swearlists):
 		irc.send(bytes('PRIVMSG ' + address + ' :Hey, ' + str(sender) + ' dont swear!\r\n','utf8'  )  )
+		time.sleep(2)
 		irc.send(bytes('KICK ' + address + ' ' + str(sender) +swearlistr+ ' \r\n','utf8'  )  )
 	
 	hatemsg = ['i','hate','you']
 	hatemsgr = ' mind yourself next time!'
-	if all(word in str(message) for word in hatemsg):
+	if all(word in refinedmsg for word in hatemsg ):
 		irc.send(bytes(PRIV + address + ' :Hey, ' + str(sender) + hatemsgr+ ' \r\n','utf8'  )  )
 	
-	addrmsg = ['where','do','you','live']
+	addrmsg = ['where','do','you','live','bot']
 	addrmsgr = ' i live in my house . . .'
-	if all(word in str(message) for word in addrmsg):
+	if all(word in refinedmsg for word in addrmsg):
 		irc.send(bytes(PRIV + address + ' :Hey, ' + str(sender) + addrmsgr+ ' \r\n','utf8'  )  )
 	
-	howhmsg = ['how','are','you']
+	howhmsg = ['how','are','you','bot']
 	howhmsgr = ' fine and you? . . .'
-	if all(word in str(message) for word in howhmsg):
+	if all(word in refinedmsg for word in howhmsg):
 		irc.send(bytes(PRIV + address + ' :Hey, ' + str(sender) + howhmsgr+ ' \r\n','utf8'  )  )
 	
-	statmsg = ['what','are','you','doing']
+	statmsg = ['what','are','you','doing','bot']
 	statmsgr = ' oh i\'m talking to you . . .'
-	if all(word in str(message) for word in statmsg):
+	if all(word in refinedmsg for word in statmsg):
 		irc.send(bytes(PRIV + address + ' :Hey, ' + str(sender) + statmsgr+ ' \r\n','utf8'  )  )
 	
-	sleepmsg = ['are','you','sleeping']
+	sleepmsg = ['are','you','sleeping','bot']
 	sleepmsgr = ' if i\'m responding to you. no . . .'
-	if all(word in str(message) for word in sleepmsg):
+	if all(word in refinedmsg for word in sleepmsg):
 		irc.send(bytes(PRIV + address + ' :Hey, ' + str(sender) + sleepmsgr+ ' \r\n','utf8'  )  )
 	
-	aslmmsg = ['aslm']
+	aslmmsg = ['aslm','bot']
 	aslmmsgr = ' wslm'
-	if all(word in str(message) for word in aslmmsg):
+	if all(word in refinedmsg for word in aslmmsg):
 		irc.send(bytes(PRIV + address + ' :Hey, ' + str(sender) + aslmmsgr+ ' \r\n','utf8'  )  )
 	
-	aslm2msg = ['assala']
+	aslm2msg = ['assala','bot']
 	aslm2msgr = ' wa alaikumus salaam'
-	if all(word in str(message) for word in aslm2msg):
+	if all(word in refinedmsg for word in aslm2msg):
 		irc.send(bytes(PRIV + address + ' :Hey, ' + str(sender) + aslm2msgr+ ' \r\n','utf8'  )  )
 	
-	okmsg = ['ok','fine']
+	okmsg = ['ok','fine','bot']
 	okmsgr = ' good '
-	if all(word in str(message) for word in okmsg):
+	if all(word in refinedmsg for word in okmsg):
 		irc.send(bytes(PRIV + address + ' : ' + okmsgr+ ' \r\n','utf8'  )  )
 	
 	alhmsg = ['alhamdulillah']
 	alhmsgr = ' yes indeed praise be to allah . . . الحمد لله '
-	if all(word in str(message) for word in alhmsg):
+	if all(word in refinedmsg for word in alhmsg):
 		irc.send(bytes(PRIV + address + ' :Hey, ' + str(sender) + alhmsgr+ ' \r\n','utf8'  )  )
 
 #...################################################################################
@@ -381,14 +430,14 @@ def messagechecker(msgLine):
 
 	lovelist = ['love','sexy','marry','woman']
 	lovelistr = ' feels that he is hearing love too often'
-	if any(word in str(message) for word in lovelist):
+	if any(word in refinedmsg for word in lovelist):
 		irc.send(bytes(PRIV+' '+address+' :\x01ACTION '+lovelistr+'\x01\r\n','utf8')  )
 	
 	horsemanlist = ['sword','shield','horse']
 	horsemanlistm  = ' salutes the spirit of horsemanship'
 	horsemanlistm2 = ' is longing to be a horseman'
 	horsemanlistr=''
-	if any(word in str(message) for word in horsemanlist):
+	if any(word in refinedmsg for word in horsemanlist):
 		hsrand = random.randint(1,2)
 		if(hsrand==1):
 			horsemanlistr = horsemanlistm
@@ -402,35 +451,35 @@ def messagechecker(msgLine):
 
 	
 	if (str(message[0:4]) == '.wea'):
-			try:
-				data= message[5:len(message)].strip()
-				dsplit = data.split(' ',1)
-				if(' ' in str(dsplit[1])):
-					stri=dsplit[1]
-					strok=stri.replace(' ','_')
-					dp2=str(strok)
-				else:
-					dp2=str(dsplit[1])
-				dp1 = str(dsplit[0].strip())
-				f=urllib.request.urlopen('http://api.wunderground.com/api/'+key+'/geolookup/conditions/q/'+dp1+'/'+dp2+'.json').read().decode('utf8')
-				json_string = f
-				parsed_json = json.loads(json_string)
-				location = parsed_json['location']['city']
-				temp_f = parsed_json['current_observation']['temp_f']
-				loca = str(location)
-				tampint = float(temp_f)
-				convfc1 = tampint - 32
-				convfc2 = 0.5556
-				convfc3 = math.floor(convfc1 * convfc2)
-				tamp =str(convfc3)
-				#irc.send(bytes('PRIVMSG ' + BOT_IRC_CHANNEL +' '+ "Current temperature in %s is: %s" % (location, temp_f)+ ' \r\n','utf8'))
-				irc.send(bytes('PRIVMSG ' + address +" :Current temperature in "+loca+' is '+tamp+ ' C\r\n','utf8')  )
-				f.close()
-			except:
-				#print(dp1)
-				#print(dp2)
-				#irc.send(bytes('PRIVMSG ' + BOT_IRC_CHANNEL + ' :Hey, ' + str(sender) + ' unable to fetch weather!\r\n','utf8'  )  )
-				pass
+		try:
+			data= message[5:len(message)].strip()
+			dsplit = data.split(' ',1)
+			if(' ' in str(dsplit[1])):
+				stri=dsplit[1]
+				strok=stri.replace(' ','_')
+				dp2=str(strok)
+			else:
+				dp2=str(dsplit[1])
+			dp1 = str(dsplit[0].strip())
+			f=urllib.request.urlopen('http://api.wunderground.com/api/'+key+'/geolookup/conditions/q/'+dp1+'/'+dp2+'.json').read().decode('utf8')
+			json_string = f
+			parsed_json = json.loads(json_string)
+			location = parsed_json['location']['city']
+			temp_f = parsed_json['current_observation']['temp_f']
+			loca = str(location)
+			tampint = float(temp_f)
+			convfc1 = tampint - 32
+			convfc2 = 0.5556
+			convfc3 = math.floor(convfc1 * convfc2)
+			tamp =str(convfc3)
+			#irc.send(bytes('PRIVMSG ' + BOT_IRC_CHANNEL +' '+ "Current temperature in %s is: %s" % (location, temp_f)+ ' \r\n','utf8'))
+			irc.send(bytes('PRIVMSG ' + address +" :Current temperature in "+loca+' is '+tamp+ ' C\r\n','utf8')  )
+			f.close()
+		except:
+			#print(dp1)
+			#print(dp2)
+			#irc.send(bytes('PRIVMSG ' + BOT_IRC_CHANNEL + ' :Hey, ' + str(sender) + ' unable to fetch weather!\r\n','utf8'  )  )
+			pass
 
 #...################################################################################
 #.                               wordpress posts                                  #
@@ -483,7 +532,38 @@ def messagechecker(msgLine):
 		except:
 			irc.send(bytes('PRIVMSG ' + address + ' :Hey, ' + str(sender) +' could not perform the square root operation !\r\n','utf8'  )  )
 			pass
-			
+	
+	if (refinedmsg[0:6] == '.table'):
+		try:
+			tabllist = refinedmsg.split()
+			table=int( tabllist[1] )
+			upto=int ( tabllist[2] )
+			if (table < 10000 and upto < 10000):
+				i1 = 0
+				i2 = 0
+				directory = "C:\\irc"
+				if not os.path.exists(directory):
+					os.makedirs(directory)
+				filem = open(os.path.join(directory,"filetab.txt"), 'w')
+				while i1 < upto :
+					i1 += 1
+					i2 += 1
+					data = 1 * table * i1
+					#sdata ='for {} : {} '.format(i2,data)
+					filem.write(str(i2)+'>'+str(data)+' ')
+					filem.flush()
+
+					#irc.send(bytes('PRIVMSG ' + address + ' :  ' +sdata+' \r\n','utf8'  )  )
+				filem.close()
+				filen=open(os.path.join(directory,"filetab.txt"), 'r')
+				cc=filen.read(8192)
+				dd=filen.read(8192)
+				msg=str(cc+dd)
+				irc.send(bytes('PRIVMSG ' + address + ' : '+msg+ '\r\n','utf8'  )  )
+		except:
+			irc.send(bytes('PRIVMSG ' + address + ' : could not get table\r\n','utf8'  )  )
+
+
 #...################################################################################
 #.                                graphical part                                 #
 #...################################################################################
@@ -697,7 +777,7 @@ irc.send(bytes('msg NickServ identify ' + BOT_PASSWORD + " \r\n"  ,'utf8')  )
 pingChecker(irc.recv(4096))
 irc.send(bytes('NICKSERV  identify ' + BOT_NICKNAME+' '+BOT_PASSWORD+ '\r\n','utf8'  )  )
 pingChecker(irc.recv(4096))
-time.sleep(5)
+time.sleep(3)
 irc.send(bytes('JOIN ' + BOT_IRC_CHANNEL + '\r\n','utf8'  )  )
 
 
@@ -736,4 +816,3 @@ while 1:
 #.split() splits at white space 
 #.split(' ',1) 1 splits at first occurance of ' '
 #.count(thing) returns how many times thing occurs in list
-
