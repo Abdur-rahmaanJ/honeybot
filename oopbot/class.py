@@ -37,8 +37,8 @@ import json
 import random
 import math
 
-from wordpress_xmlrpc import Client, WordPressPost
-from wordpress_xmlrpc.methods import posts # NewPost
+#from wordpress_xmlrpc import Client, WordPressPost
+#from wordpress_xmlrpc.methods import posts # NewPost
 
 import config
 
