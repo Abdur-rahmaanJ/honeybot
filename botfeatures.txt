@@ -1,5 +1,1 @@
-#response to some chats
-#kick upon swear if moderator
-'if not sends warning
-#conversation recording
-#weather fetching mechanism
+SEE WIKI FOR FEATURES
