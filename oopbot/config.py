@@ -15,4 +15,4 @@ OWNER1 = "appinventormu"
 OWNER2 = "appinv"
 
 OWNERS =[OWNER1,OWNER2]
-PASSWORD = "rfvtgbyhn"
+PASSWORD = ""
