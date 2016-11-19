@@ -370,8 +370,8 @@ def messagechecker(msgLine):
 		irc.send(bytes(PRIV + address + ' :Hey, ' + str(sender) + himsgr+ ' \r\n','utf8'  )  )
 
 	
-	swearlist = ['fuck','faggot','fool','sex','buck' ,'shit','dick','ggt','falourmama','zako','pilon','pilnn','tits','penis','vagina','damn','bitch','piss']
-	swearlist2 = ['fess','liki','ass','derriere','beze']
+	swearlist = []
+	swearlist2 = []
 	swearlists= swearlist + swearlist2
 	swearlistr = ' dont swear'
 	if any(word in refinedmsg for word in swearlists):
