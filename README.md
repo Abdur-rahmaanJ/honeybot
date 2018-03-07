@@ -19,9 +19,19 @@ password = none
 ~~~
 - run main.py
 
+## todo 🔌 plugins
+- [ ] 💐 humour
+- [ ] 🌨️ weather
+- [ ] ✉️ mail
+- [ ] 🎛️ maths
+- [ ] 📥 pm when user online
+
 ## contributing countries
 
 🇲🇺
+
+## contact
+- __ init __ maintainer : Abdur-Rahmaan Janhangeer | 📧 arj.python@gmail.com
 
 
  
