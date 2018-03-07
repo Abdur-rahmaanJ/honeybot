@@ -1,15 +1,20 @@
-# honeybot py 🇲🇺
+# honeybot py 
 
-<p>My own bot; an exploration of Python.</p>
-<p>major rewrite in progress</p>
+My own bot; an exploration of Python
+major rewrite in progress
 
 # what changed ?
 
- * OOP architecture
- * keyword parameters
- * now with plugins
+ * 🍬 OOP architecture
+ * 🛰️ keyword parameters
+ * 🔌 now with plugins
+
+## contributing countries
+
+🇲🇺
+
+
  
-_from mauritius_
- 
+
 
 
