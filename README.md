@@ -1,4 +1,4 @@
-# honeybot py 
+# 🍯 honeybot py 
 
 My own bot; an exploration of Python
 major rewrite in progress
