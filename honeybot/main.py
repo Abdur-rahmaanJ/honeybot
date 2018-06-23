@@ -55,9 +55,44 @@ class Bot_core(object):
     
     def pong_return(self):
         return 'PONG \r\n'
+        
+    def info(self, s):
+        def return_it(x):
+            if x == None:
+                return ''
+            else:
+                return x
+        try:
+            prefix = ''
+            trailing = []
+            address = ''
+            if not s:
+               print("Empty line.")
+            if s[0] == ':':
+                prefix, s = s[1:].split(' ', 1)
+            if s.find(' :') != -1:
+                s, trailing = s.split(' :', 1)
+                args = s.split()
+                args.append(trailing)
+            else:
+                args = s.split()
+            command = args.pop(0)
+            if '#' in args[0]:
+                address = args[0]
+            else:
+                address = prefix.split('!~')[0]
+            # return prefix, command, args, address
+            return {
+                    'prefix':return_it(prefix),
+                    'command':return_it(command),
+                    'args':['' if e is None else e for e in args],
+                    'address':return_it(address)
+                    }
+        except Exception as e:
+            print('woops',e)
     
     '''
-    BOT UTIL FUNCTIONS
+    MESSAGE UTIL
     '''
     def send(self, msg):
         self.irc.send(bytes( msg, "UTF-8")) 
@@ -67,6 +102,10 @@ class Bot_core(object):
         
     def join(self, channel):
         self.send(self.join_channel_command(channel))
+        
+    '''
+    BOT UTIL
+    '''
 
     def load_plugins(self, list_to_add):
         to_load = []
@@ -88,21 +127,16 @@ class Bot_core(object):
         
     def run_plugins(self, listfrom, incoming):
         for plugin in listfrom:
-            plugin.run(incoming, self.methods())
+            plugin.run(incoming, self.methods(), self.info(incoming))
         
     '''
     MESSAGE PARSING
     '''
     def core_commands_parse(self, incoming):
-        '''
-        PARSING UTILS
-        '''
-        
         
         '''
         PLUGINS
         '''
-        incoming = incoming.split()
         self.run_plugins(self.plugins, incoming)
 
 
@@ -110,7 +144,7 @@ class Bot_core(object):
     BOT IRC FUNCTIONS
     '''
     def connect(self):
-        self.irc.connect((self.server_url, self.port))
+            self.irc.connect((self.server_url, self.port))
     
     def identify(self):
         self.send(self.identify_command())
@@ -123,15 +157,21 @@ class Bot_core(object):
     
     def pull(self):
         while self.isListenOn:
-            data = self.irc.recv(2048)
-            raw_msg = data.decode("UTF-8")
-            msg = raw_msg.strip('\n\r')
-            self.stay_alive(msg)
-            self.core_commands_parse(msg)
-            print(msg)
-            if len(data) == 0:
-                self.irc.close()
-                self.registered_run()
+            try :
+                data = self.irc.recv(2048)
+                raw_msg = data.decode("UTF-8")
+                msg = raw_msg.strip('\n\r')
+                self.stay_alive(msg)
+                self.core_commands_parse(msg)
+                print(' '*5,msg)
+                if len(data) == 0:
+                    try:
+                        self.irc.close()
+                        self.registered_run()
+                    except Exception as e:
+                        print(e)
+            except KeyboardInterrupt:
+                pass
                 
 
     # all in one for registered bot
@@ -156,9 +196,12 @@ class Bot_core(object):
             part = incoming.split(':')
             if self.domain in part[1]:
                 self.send(self.pong_return())
-                print(''' * message *
+                print(''' 
+                      ***** message *****
                       ping detected from
-                      ''', part[1])
+                      {}
+                      *******************
+                      '''.format(part[1]))
                 self.irc.recv(2048).decode("UTF-8")
 
 x = Bot_core();x.registered_run()

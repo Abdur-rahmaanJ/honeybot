@@ -7,14 +7,11 @@ class Plugin:
     def __init__(self):
         pass
     
-    def run(self, incoming, methods):
-        print('greet')
-        msg = ''
-        if incoming[-1][0] == ':':
-            msg = incoming[-1][1:]
-            if msg == 'hi':
-                if '#' in incoming[-2]:
-                    methods['send'](incoming[-2], 'hoho')
-                else:
-                    methods['send'](incoming[0].split('!~')[0][1:], 'hoho')
-        pass
+    def run(self, incoming, methods, info):
+        try:
+            if '!~' in info['prefix']:
+                print(info)
+            if info['command'] == 'PRIVMSG' and info['args'][1] == 'hi':
+                methods['send'](info['address'], 'hooo')
+        except Exception as e:
+            print('woops plug',e)
