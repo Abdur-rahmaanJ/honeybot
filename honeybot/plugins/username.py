@@ -15,8 +15,8 @@ class Plugin:
         
     def run(self, incoming, methods, info):
         try:
-            if '!~' in info['prefix']:
-                print(info)
+            #if '!~' in info['prefix']:
+                #print(info)
             msgs = info['args'][1:]
             if info['command'] == 'PRIVMSG' and msgs[0] == '.uname':
                 methods['send'](info['address'], self.gen_uname())

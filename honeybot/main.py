@@ -170,8 +170,8 @@ class Bot_core(object):
                         self.registered_run()
                     except Exception as e:
                         print(e)
-            except KeyboardInterrupt:
-                pass
+            except Exception as e:
+                print(e)
                 
 
     # all in one for registered bot
