@@ -20,7 +20,7 @@ password = none
 - run main.py
 
 ## todo 🔌 plugins
-- [ ] 💐 humour
+- [x] 💐 humour
 - [ ] 🌨️ weather
 - [ ] ✉️ mail
 - [ ] 🎛️ maths
