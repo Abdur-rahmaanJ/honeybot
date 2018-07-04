@@ -17,7 +17,8 @@ chemistry.',
 are old school.She said that people use tablets nowadays and handed me her \
 iPad. The fly didn’t stand a chance',
 'A recent scientific study showed that out of 2,293,618,367 people, 94% are \
-too lazy to actually read that number.'
+too lazy to actually read that number.',
+'Why is it a bad idea to insult an octopus? because it is well armed'
 ]
 
         return '{}'.format(random.choice(jokes))

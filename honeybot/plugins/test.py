@@ -11,7 +11,7 @@ class Plugin:
         # if '!~' in info['prefix']:
             # print(info)
         try:
-            if info['command'] == 'PRIVMSG' and info['args'][1] == 'test':
+            if info['command'] == 'PRIVMSG' and info['args'][1] == '.test':
                 methods['send'](info['address'], 'test ok')
         except Exception as e:
             print('woops plug',e)
