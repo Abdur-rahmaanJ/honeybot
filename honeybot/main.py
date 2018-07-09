@@ -108,15 +108,18 @@ class Bot_core(object):
     '''
 
     def load_plugins(self, list_to_add):
-        to_load = []
-        with open('PLUGINS.conf', 'r') as f:
-            to_load = f.read().split('\n')
-            to_load = list(filter(lambda x: x != '', to_load))
-        for file in to_load:
-            module = importlib.import_module('plugins.'+file)
-            Plugin = getattr(module, 'Plugin')
-            obj = Plugin()
-            list_to_add.append(obj)
+        try:
+            to_load = []
+            with open('PLUGINS.conf', 'r') as f:
+                to_load = f.read().split('\n')
+                to_load = list(filter(lambda x: x != '', to_load))
+            for file in to_load:
+                module = importlib.import_module('plugins.'+file)
+                Plugin = getattr(module, 'Plugin')
+                obj = Plugin()
+                list_to_add.append(obj)
+        except ModuleNotFoundError as e:
+            print('module not found', e)
             
     def methods(self):
         return {
