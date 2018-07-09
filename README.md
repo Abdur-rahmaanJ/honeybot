@@ -2,7 +2,9 @@
 
 My own bot; an exploration of Python
 major rewrite in progress 
+#
 
+![alt text](honeybot_real.png "Logo Title Text 1")
 # ✂ what changed ?
 
  * 🍬 OOP architecture
