@@ -5,22 +5,35 @@
 import random
 
 class Plugin:
+    """
+    checkin 
+    L checks in list
+    S checks in string
+    """
     def __init__(self):
         self.topics = {
                 'bot':{
-                       'words':['bot', 'robot', 'artificial intelligence', 'ai'],
+                       'elems':['bot', 'robot', 'artificial intelligence', 'ai'],
                        'occurs':1,
                        'replies':['you are thinking about me and my cousins', 
-                       'bots are we?']
+                       'bots are we?'],
+                       'checkin':'L'
                         },
                 'nature':{
-                       'words':['earth', 'flower', 'lake', 'sea', 'world', 
+                       'elems':['earth', 'flower', 'lake', 'sea', 'world', 
                                 'forest', 'grass'],
                        'occurs':2,
                        'replies':['we must remind ourselves to protect our lovely '+
                                 'planet', 
-                                'plant a tree when you can']
+                                'plant a tree when you can'],
+                       'checkin':'L'
                         },
+                'alhmd':{
+                       'elems':['a','l','ha','m','d'],
+                       'occurs':5,
+                       'replies':[' yes indeed, praise be to allah (الحَمْد لله) . . .'],
+                       'checkin':'S'
+                        }
                 }
 
 
@@ -33,12 +46,24 @@ class Plugin:
                     msgs = set(msgs)
                     
                     for topic in self.topics:
-                        meet = set(self.topics[topic]['words']).intersection(msgs)
-                        
-                        if len(meet) == self.topics[topic]['occurs']:
-                            methods['send'](info['address'], 
-                                   random.choice(self.topics[topic]['replies'])
-                                   )
+                        if self.topics[topic]['checkin'] == 'L':
+                            meet = set(self.topics[topic]['elems']).intersection(msgs)
+                            
+                            if len(meet) == self.topics[topic]['occurs']:
+                                methods['send'](info['address'], 
+                                       random.choice(self.topics[topic]['replies'])
+                                       )
+                        elif self.topics[topic]['checkin'] == 'S':
+                                for word in msgs:
+                                    meet = set(self.topics[topic]['elems']).intersection(set(word))
+                                    print(word, meet)
+                                    occurs = self.topics[topic]['occurs']
+                                    if meet and len(meet) > occurs-2:
+                                        methods['send'](info['address'], 
+                                               random.choice(self.topics[topic]['replies'])
+                                               )
+                                        break
+                                
                         
         except Exception as e:
             print('\n*error*\nwoops plugin', __file__, e, '\n')
