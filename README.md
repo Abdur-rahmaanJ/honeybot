@@ -3,12 +3,15 @@
 My own bot; an exploration of Python
 major rewrite in progress 
 
-# what changed ?
+# ✂ what changed ?
 
  * 🍬 OOP architecture
  * 🛰️ keyword parameters
  * 🌵 password security with config file [disabled for now]
  * 🔌 now with plugins
+ 
+# 📚 more info
+[[ wiki ]](https://www.google.com)
  
 ## quickstart
 
