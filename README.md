@@ -3,8 +3,11 @@
 My own bot; an exploration of Python
 major rewrite in progress 
 #
-
 ![alt text](honeybot_real.png "honeybot logo")
+
+## project available via
+[![Open Source Helpers](https://www.codetriage.com/abdur-rahmaanj/honeybot/badges/users.svg)](https://www.codetriage.com/abdur-rahmaanj/honeybot)
+
 # ✂ what changed ?
 
  * 🍬 OOP architecture
@@ -43,7 +46,7 @@ username
 🇲🇺
 
 ## contact
-- __ init __ maintainer : Abdur-Rahmaan Janhangeer | 📧 arj.python@gmail.com
+- Abdur-Rahmaan Janhangeer | 📧 arj.python@gmail.com
 
 
  
