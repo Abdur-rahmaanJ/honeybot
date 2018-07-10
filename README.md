@@ -2,13 +2,18 @@
 
 My own bot; an exploration of Python
 major rewrite in progress 
+#
 
-# what changed ?
+![alt text](honeybot_real.png "Logo Title Text 1")
+# ✂ what changed ?
 
  * 🍬 OOP architecture
  * 🛰️ keyword parameters
  * 🌵 password security with config file [disabled for now]
  * 🔌 now with plugins
+ 
+# 📚 more info
+[[ wiki ]](https://www.google.com)
  
 ## quickstart
 
