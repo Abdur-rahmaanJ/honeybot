@@ -1,6 +1,13 @@
 # -*- coding: utf-8 -*-
 """
+[greet.py]
+Greet Plugin
 
+[Author]
+Abdur-Rahmaan Janhangeer, pythonmembers.club
+
+[About]
+responds to hi, demo of a basic plugin
 """
 
 class Plugin:

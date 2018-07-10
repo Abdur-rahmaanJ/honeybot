@@ -1,7 +1,13 @@
 # -*- coding: utf-8 -*-
 """
+[joke.py]
+Joke Plugin
 
+[Author]
+Abdur-Rahmaan Janhangeer, pythonmembers.club
 
+[About]
+sends a random joke on request
 """
 import random
 

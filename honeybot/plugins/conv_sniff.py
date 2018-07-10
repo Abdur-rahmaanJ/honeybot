@@ -1,6 +1,14 @@
 # -*- coding: utf-8 -*-
 """
+[conv_sniff.py]
+Conversation Sniffer Plugin
 
+[Author]
+Abdur-Rahmaan Janhangeer, pythonmembers.club
+
+[About]
+senses conversation topic with sensitivity set by user, also supports 
+word-specific sensing
 """
 import random
 
@@ -56,7 +64,6 @@ class Plugin:
                         elif self.topics[topic]['checkin'] == 'S':
                                 for word in msgs:
                                     meet = set(self.topics[topic]['elems']).intersection(set(word))
-                                    print(word, meet)
                                     occurs = self.topics[topic]['occurs']
                                     if meet and len(meet) > occurs-2:
                                         methods['send'](info['address'], 

@@ -1,6 +1,13 @@
 # -*- coding: utf-8 -*-
 """
+[maths.py]
+Miscellaneous Maths Operations Plugin
 
+[Author]
+Abdur-Rahmaan Janhangeer, pythonmembers.club
+
+[About]
+trigonometry on request
 """
 import math 
 

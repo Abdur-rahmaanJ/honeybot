@@ -1,6 +1,13 @@
 # -*- coding: utf-8 -*-
 """
+[calc.py]
+Maths Operation Plugin
 
+[Author]
+Abdur-Rahmaan Janhangeer, pythonmembers.club
+
+[About]
+evaluates maths expressions in the format supported by py
 """
 from string import ascii_letters
 

@@ -1,6 +1,13 @@
 # -*- coding: utf-8 -*-
 """
+[username.py]
+Username Generator Plugin
 
+[Author]
+Abdur-Rahmaan Janhangeer, pythonmembers.club
+
+[About]
+generates random usernames, used for inspiration
 """
 import random
 

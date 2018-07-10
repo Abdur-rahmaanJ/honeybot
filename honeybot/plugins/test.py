@@ -1,6 +1,13 @@
 # -*- coding: utf-8 -*-
 """
+[test.py]
+Test Plugin
 
+[Author]
+Abdur-Rahmaan Janhangeer, pythonmembers.club
+
+[About]
+tests run
 """
 
 class Plugin:
