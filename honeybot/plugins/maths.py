@@ -7,9 +7,9 @@ Miscellaneous Maths Operations Plugin
 Abdur-Rahmaan Janhangeer, pythonmembers.club
 
 [About]
-trigonometry on request
+some maths related commands
 """
-import math 
+import math, random
 
 class Plugin:
     def __init__(self):
@@ -32,6 +32,9 @@ class Plugin:
                     elif msgs[0] == '.tan':
                         tangent = math.tan(int(msgs[1]))
                         methods['send'](info['address'], '{}'.format(tangent))
+                    elif msgs[0] == '.rand':
+                        rand = random.randint(int(msgs[1]), int(msgs[2]))
+                        methods['send'](info['address'], '{}'.format(rand))
         except Exception as e:
-            print('woops plug',e)
+            print('\n*error*\nwoops plugin', __file__, e, '\n')
 

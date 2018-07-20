@@ -166,7 +166,10 @@ class Bot_core(object):
                 msg = raw_msg.strip('\n\r')
                 self.stay_alive(msg)
                 self.core_commands_parse(msg)
-                print(' '*5,msg)
+                print(
+                """***
+{}                
+                   """.format(msg))
                 if len(data) == 0:
                     try:
                         self.irc.close()
