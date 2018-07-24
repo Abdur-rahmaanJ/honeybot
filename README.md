@@ -20,6 +20,9 @@ i actually started learning python through that bot. java was too much a pain fo
  
 ## 📚 more info
 [[ wiki ]](https://github.com/Abdur-rahmaanJ/honeybot/wiki)
+
+## commands
+[[ commands ]](https://github.com/Abdur-rahmaanJ/honeybot/wiki/commands)
  
 ## quickstart
 
