@@ -1,6 +1,7 @@
 # 🍯 honeybot py 
 
-honeybot: the bot to learn python
+## about
+honeybot: the bot to learn python. feel free to pr.
 #
 ![alt text](honeybot_real.png "honeybot logo")
 
@@ -25,6 +26,9 @@ i actually started learning python through that bot. java was too much a pain fo
 [[ wiki ]](https://github.com/Abdur-rahmaanJ/honeybot/wiki)
 
 ## commands
+[[ commands ]](https://github.com/Abdur-rahmaanJ/honeybot/wiki/commands)
+
+## plugins devlopment
 [[ commands ]](https://github.com/Abdur-rahmaanJ/honeybot/wiki/commands)
  
 ## quickstart

@@ -8,13 +8,18 @@ Abdur-Rahmaan Janhangeer, pythonmembers.club
 
 [About]
 sends a random joke on request
+
+[Commands]
+>>> .joke
+returns a random joke
 """
 import random
+
 
 class Plugin:
     def __init__(self):
         pass
-    
+
     def joke(self):
         jokes = [
 'Why did the physics teacher break up with the biology teacher? There was no \
@@ -28,13 +33,13 @@ too lazy to actually read that number.',
 ]
 
         return '{}'.format(random.choice(jokes))
-        
+
     def run(self, incoming, methods, info):
         try:
-            #if '!~' in info['prefix']:
-                #print(info)
+            # if '!~' in info['prefix']:
+                # print(info)
             msgs = info['args'][1:]
             if info['command'] == 'PRIVMSG' and msgs[0] == '.joke':
                 methods['send'](info['address'], self.joke())
         except Exception as e:
-            print('woops plug',e)
+            print('woops plug', e)

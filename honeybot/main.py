@@ -15,7 +15,7 @@ class Bot_core(object):
                  owners = ['appinventorMu', 'appinv'],
                  password = '',
                  friends = ['haruno', 'keiserr', 'loganaden'],
-                 autojoin_channels = ['##bottestingmu']
+                 autojoin_channels = ['##bottestingmu', '#bottest']
                  ):
         self.server_url = server_url
         self.port = port
