@@ -7,15 +7,16 @@ import importlib
 
 plugins = []
 
+
 class Bot_core(object):
-    def __init__(self, 
-                 server_url = 'chat.freenode.net',
-                 port = 6667,
-                 name = 'appinventormuBot',
-                 owners = ['appinventorMu', 'appinv'],
-                 password = '',
-                 friends = ['haruno', 'keiserr', 'loganaden'],
-                 autojoin_channels = ['##bottestingmu', '#bottest']
+    def __init__(self,
+                 server_url='chat.freenode.net',
+                 port=6667,
+                 name='appinventormuBot',
+                 owners=['appinventorMu', 'appinv'],
+                 password='',
+                 friends=['haruno', 'keiserr', 'loganaden'],
+                 autojoin_channels=['##bottestingmu', '#bottest']
                  ):
         self.server_url = server_url
         self.port = port
@@ -24,7 +25,7 @@ class Bot_core(object):
         self.password = password
         self.autojoin_channels = autojoin_channels
         self.friends = friends
-          
+
         '''
         NORMAL ATTRIBUTES
         '''
@@ -34,31 +35,32 @@ class Bot_core(object):
         self.domain = '.'.join(dom[-2:])
         self.sp_command = 'hbot'
         self.plugins = []
-  
+
     '''
     STRINGS
     '''
     def set_nick_command(self):
         return 'NICK ' + self.name + '\r\n'
-    
+
     def present_command(self):
-        return 'USER '+self.name+' '+self.name+' '+self.name+' : '+self.name+' IRC\r\n'
-    
+        return 'USER ' + self.name + ' ' + self.name + ' ' + 
+        self.name + ' : ' + self.name + ' IRC\r\n'
+
     def identify_command(self):
         return 'msg NickServ identify ' + self.password + ' \r\n'
-    
+
     def join_channel_command(self, channel):
         return 'JOIN ' + channel + ' \r\n'
-    
+
     def specific_send_command(self, target, msg):
-        return "PRIVMSG "+ target +" :"+ msg +"\r\n"
-    
+        return "PRIVMSG " + target + " :" + msg + "\r\n"
+
     def pong_return(self):
         return 'PONG \r\n'
-        
+
     def info(self, s):
         def return_it(x):
-            if x == None:
+            if x is None:
                 return ''
             else:
                 return x
@@ -67,7 +69,7 @@ class Bot_core(object):
             trailing = []
             address = ''
             if not s:
-               print("Empty line.")
+                print("Empty line.")
             if s[0] == ':':
                 prefix, s = s[1:].split(' ', 1)
             if s.find(' :') != -1:
@@ -83,26 +85,26 @@ class Bot_core(object):
                 address = prefix.split('!~')[0]
             # return prefix, command, args, address
             return {
-                    'prefix':return_it(prefix),
-                    'command':return_it(command),
-                    'args':['' if e is None else e for e in args],
-                    'address':return_it(address)
+                    'prefix': return_it(prefix),
+                    'command': return_it(command),
+                    'args': ['' if e is None else e for e in args],
+                    'address': return_it(address)
                     }
         except Exception as e:
-            print('woops',e)
-    
+            print('woops', e)
+
     '''
     MESSAGE UTIL
     '''
     def send(self, msg):
-        self.irc.send(bytes( msg, "UTF-8")) 
-        
+        self.irc.send(bytes(msg, "UTF-8"))
+
     def send_target(self, target, msg):
         self.send(self.specific_send_command(target, msg))
-        
+
     def join(self, channel):
         self.send(self.join_channel_command(channel))
-        
+
     '''
     BOT UTIL
     '''
@@ -120,47 +122,46 @@ class Bot_core(object):
                 list_to_add.append(obj)
         except ModuleNotFoundError as e:
             print('module not found', e)
-            
+
     def methods(self):
         return {
-                'send_raw':self.send,
-                'send':self.send_target,
-                'join':self.join
+                'send_raw': self.send,
+                'send': self.send_target,
+                'join': self.join
                 }
-        
+
     def run_plugins(self, listfrom, incoming):
         for plugin in listfrom:
             plugin.run(incoming, self.methods(), self.info(incoming))
-        
+
     '''
     MESSAGE PARSING
     '''
     def core_commands_parse(self, incoming):
-        
+
         '''
         PLUGINS
         '''
         self.run_plugins(self.plugins, incoming)
-
 
     '''
     BOT IRC FUNCTIONS
     '''
     def connect(self):
             self.irc.connect((self.server_url, self.port))
-    
+
     def identify(self):
         self.send(self.identify_command())
-    
+
     def greet(self):
         self.send(self.set_nick_command())
         self.send(self.present_command())
         for channel in self.autojoin_channels:
             self.send(self.join_channel_command(channel))
-    
+
     def pull(self):
         while self.isListenOn:
-            try :
+            try:
                 data = self.irc.recv(2048)
                 raw_msg = data.decode("UTF-8")
                 msg = raw_msg.strip('\n\r')
@@ -168,7 +169,7 @@ class Bot_core(object):
                 self.core_commands_parse(msg)
                 print(
                 """***
-{}                
+{}
                    """.format(msg))
                 if len(data) == 0:
                     try:
@@ -178,7 +179,6 @@ class Bot_core(object):
                         print(e)
             except Exception as e:
                 print(e)
-                
 
     # all in one for registered bot
     def registered_run(self):
@@ -187,13 +187,13 @@ class Bot_core(object):
         self.greet()
         self.load_plugins(self.plugins)
         self.pull()
-        
+
     def unregistered_run(self):
         self.connect()
         self.greet()
         self.load_plugins(plugins)
         self.pull()
-        
+
     '''
     ONGOING REQUIREMENT/S
     '''
@@ -202,7 +202,7 @@ class Bot_core(object):
             part = incoming.split(':')
             if self.domain in part[1]:
                 self.send(self.pong_return())
-                print(''' 
+                print('''
                       ***** message *****
                       ping detected from
                       {}
@@ -210,4 +210,6 @@ class Bot_core(object):
                       '''.format(part[1]))
                 self.irc.recv(2048).decode("UTF-8")
 
-x = Bot_core();x.registered_run()
+
+x = Bot_core()
+x.registered_run()

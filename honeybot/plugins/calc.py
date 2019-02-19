@@ -8,17 +8,22 @@ Abdur-Rahmaan Janhangeer, pythonmembers.club
 
 [About]
 evaluates maths expressions in the format supported by py
+
+[Commands]
+>>> .calc <maths expression>
+returns evaluated expression
 """
 from string import ascii_letters
+
 
 class Plugin:
     def __init__(self):
         pass
-        
+
     def run(self, incoming, methods, info):
         try:
             msgs = info['args'][1:][0].split()
-            
+
             if info['command'] == 'PRIVMSG':
                 if len(msgs) > 1:
                     if msgs[0] == '.calc':
@@ -26,7 +31,7 @@ class Plugin:
                         for c in ascii_letters:
                             expr = '' + expr.replace(c, '')
                         methods['send'](info['address'], '{}'.format(
-                                eval(expr)))
+                                eval(expr))
+                        )
         except Exception as e:
             print('woops plugin', __file__, e)
-            methods['send'](info['address'], 'error in calc command')

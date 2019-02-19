@@ -8,17 +8,32 @@ Abdur-Rahmaan Janhangeer, pythonmembers.club
 
 [About]
 some maths related commands
+
+[Commands]
+>>> .sin <number>
+returns sine of number
+
+>>> .cos <number>
+returns cosine of number
+
+>>> .tan <number>
+returns tangent of number
+
+>>> .rand <number1> <number2>
+returns number between number1 and number2
 """
-import math, random
+import math
+import random
+
 
 class Plugin:
     def __init__(self):
         pass
-        
+
     def run(self, incoming, methods, info):
         try:
-            #if '!~' in info['prefix']:
-                #print(info)
+            # if '!~' in info['prefix']:
+                # print(info)
             msgs = info['args'][1:][0].split()
             # print(msgs)
             if info['command'] == 'PRIVMSG':
@@ -37,4 +52,3 @@ class Plugin:
                         methods['send'](info['address'], '{}'.format(rand))
         except Exception as e:
             print('\n*error*\nwoops plugin', __file__, e, '\n')
-
