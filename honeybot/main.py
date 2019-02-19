@@ -4,15 +4,18 @@
 import socket
 import os
 import importlib
+import configparser
 
+config = configparser.ConfigParser()
+config.read('CONNECT.conf')
 plugins = []
 
 
 class Bot_core(object):
     def __init__(self,
-                 server_url='chat.freenode.net',
-                 port=6667,
-                 name='appinventormuBot',
+                 server_url=config['INFO']['server_url'],
+                 port=int(config['INFO']['port']),
+                 name=config['INFO']['name'],
                  owners=['appinventorMu', 'appinv'],
                  password='',
                  friends=['haruno', 'keiserr', 'loganaden'],
@@ -43,7 +46,7 @@ class Bot_core(object):
         return 'NICK ' + self.name + '\r\n'
 
     def present_command(self):
-        return 'USER ' + self.name + ' ' + self.name + ' ' + 
+        return 'USER ' + self.name + ' ' + self.name + ' ' +\
         self.name + ' : ' + self.name + ' IRC\r\n'
 
     def identify_command(self):
@@ -131,6 +134,9 @@ class Bot_core(object):
                 }
 
     def run_plugins(self, listfrom, incoming):
+        '''
+        incoming is the unparsed string. refer to test.py
+        '''
         for plugin in listfrom:
             plugin.run(incoming, self.methods(), self.info(incoming))
 
@@ -173,8 +179,7 @@ class Bot_core(object):
                    """.format(msg))
                 if len(data) == 0:
                     try:
-                        self.irc.close()
-                        self.registered_run()
+                        print('<must handle reconnection>')
                     except Exception as e:
                         print(e)
             except Exception as e:
@@ -210,6 +215,6 @@ class Bot_core(object):
                       '''.format(part[1]))
                 self.irc.recv(2048).decode("UTF-8")
 
-
-x = Bot_core()
-x.registered_run()
+if __name__ == '__main__':
+    x = Bot_core()
+    x.registered_run()
