@@ -33,14 +33,15 @@ i actually started learning python through that bot. java was too much a pain fo
  
 ## quickstart
 
-- add a config file called 'settings.cfg' having the following [disabled for now]
+- specify your details in CONNECT.conf (already included)
 ~~~
-[BOT_SETTINGS]
-password = none
+[INFO]
+
+server_url = chat.freenode.net
+port = 6667
+name = appinventormuBot
 ~~~
 - run main.py
-
-## plugins tutorial
 
 ## todo 🔌 plugins
 - [x] 💐 humour
