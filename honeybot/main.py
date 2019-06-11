@@ -7,6 +7,7 @@ import logging
 import socket
 import sys
 import time
+from ldap import sasl
 
 connect_config = configparser.ConfigParser()
 connect_config.read('settings/CONNECT.conf')
@@ -209,7 +210,7 @@ class Bot_core(object):
     BOT IRC FUNCTIONS
     '''
     def connect(self):
-            self.irc.connect((self.server_url, self.port))
+        self.irc.connect((self.server_url, self.port))
 
     def identify(self):
         self.send(self.identify_command())
@@ -267,6 +268,16 @@ class Bot_core(object):
             logger.warning(parts[1])
             self.send(self.pong_return(self.domain))
             self.send(self.pong_return(parts[1]))
+
+
+class SaslBot(Bot_core):
+    '''
+        SaslBot is a subclass of class Bot_core that gives
+        instances the added functionality of communicating
+        with a server that requires the SASL framework for 
+        authentication and communication.
+    '''
+        pass
 
 
 if __name__ == '__main__':
