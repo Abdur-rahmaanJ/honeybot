@@ -1,4 +1,4 @@
-:warning: moved to [github.com/pyhoneybot](https://github.com/pyhoneybot)
+:warning: moved to [github.com/pyhoneybot/pyhoneybot](https://github.com/pyhoneybot/pyhoneybot)
 
 [![first-timers-only](https://img.shields.io/badge/first--timers--only-friendly-blue.svg?style=flat-square)](https://www.firsttimersonly.com/)
 ![Open Source Love](https://img.shields.io/badge/Open%20Source-%E2%9D%A4-pink.svg)
