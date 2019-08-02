@@ -251,6 +251,8 @@ git pull upstream master
 
 ## ⚡ Quickstart
 
+# :warning: moved to [github.com/pyhoneybot/honeybot](https://github.com/pyhoneybot/honeybot) :warning: #
+
 - specify your details in CONNECT.conf (already included)
 ~~~
 [INFO]
